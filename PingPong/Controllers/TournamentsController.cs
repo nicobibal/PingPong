@@ -9,7 +9,7 @@ using PingPong.Models;
 
 namespace PingPong.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("tournaments")]
     [ApiController]
     public class TournamentsController : ControllerBase
     {
@@ -82,7 +82,7 @@ namespace PingPong.Controllers
             _context.Tournaments.Add(tournament);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTournament", new { id = tournament.id }, tournament);
+            return CreatedAtAction(nameof(GetTournament), new { id = tournament.id }, tournament);
         }
 
         // DELETE: api/Tournaments/5

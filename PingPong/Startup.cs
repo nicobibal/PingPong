@@ -31,7 +31,8 @@ namespace PingPong
                 opt.UseInMemoryDatabase("Player"));
             services.AddDbContext<TournamentContext>(opt =>
                 opt.UseInMemoryDatabase("Tournament"));
-            services.AddRazorPages();
+            //services.AddRazorPages();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +58,7 @@ namespace PingPong
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
