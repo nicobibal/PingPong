@@ -8,9 +8,9 @@ namespace PingPong.Models
     public class Player
     {
         public long id { get; set; }
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public string Nationality { get; set; }
+        public string lastName { get; set; }
+        public string firstName { get; set; }
+        public string nationality { get; set; }
     }
 
 
