@@ -1,13 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace PingPong.Models
 {
     public class PlayerContext : DbContext
     {
-        public PlayerContext(DbContextOptions<PlayerContext> options)
-            : base(options)
-        {
+        protected readonly IConfiguration Configuration;
 
+        public PlayerContext(IConfiguration configuration)
+        {
+            Configuration = configuration;
         }
 
         public DbSet<Player> Players { get; set; }

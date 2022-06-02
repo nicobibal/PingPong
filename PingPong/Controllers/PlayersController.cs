@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using PingPong.Models;
 
 namespace PingPong.Controllers
@@ -24,7 +26,31 @@ namespace PingPong.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Player>>> GetPlayers()
         {
-            return await _context.Players.ToListAsync();
+            var connectionString = "server=mysql-pingpongbdd.alwaysdata.net; port=3306; user=271403; password=-PingPong-; database=pingpongbdd_database";
+            //je me connecte à la bdd
+            MySqlConnection cnn = new MySqlConnection(connectionString);
+            cnn.Open();
+            //Je crée une requête sql
+            string sql = @"SELECT * FROM Player";
+            //Executer la requête sql, donc créer une commande
+            MySqlCommand cmd = new MySqlCommand(sql, cnn);
+            var reader = cmd.ExecuteReader();
+            var maListe = new List<Player>();
+            //Récupérer le retour, et le transformer en objet
+            while (reader.Read())
+            {
+                var p = new Player()
+                {
+                    id = Convert.ToInt32(reader["id"]),
+                    lastName = reader["lastName"].ToString(),
+                    firstName = reader["firstName"].ToString(),
+                    nationality = reader["nationality"].ToString()
+                };
+                maListe.Add(p);
+            }
+            cnn.Close();
+            return maListe;
+            //return await _context.Players.ToListAsync();
         }
 
         // GET: api/Players/5

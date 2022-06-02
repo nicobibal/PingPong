@@ -1,15 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PingPong.Models;
+using Pomelo.EntityFrameworkCore.MySql.Storage;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PingPong
 {
@@ -25,13 +23,20 @@ namespace PingPong
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MatchContext>(opt =>
-                opt.UseInMemoryDatabase("Match"));
-            services.AddDbContext<PlayerContext>(opt =>
-                opt.UseInMemoryDatabase("Player"));
-            services.AddDbContext<TournamentContext>(opt =>
-                opt.UseInMemoryDatabase("Tournament"));
-            //services.AddRazorPages();
+            //string mySqlConnectionStr = Configuration.GetConnectionString("server='mysql-pingpongbdd.alwaysdata.net';user='271403';password='-PingPong-';database='pingpongbdd_database'");
+            //services.AddDbContextPool<MatchContext>(options => options.UseSqlServer(mySqlConnectionStr,(ServerVersion.AutoDetect(mySqlConnectionStr)));
+
+            //services.AddControllers();
+            //services.AddEntityFrameworkMySql();
+            services.AddDbContext<PlayerContext>(options =>
+                   options.UseMySql(Configuration.GetConnectionString("Default")));
+
+            //services.AddDbContext<MatchContext>(opt =>
+            //    opt.UseInMemoryDatabase("Match"));
+            //services.AddDbContext<PlayerContext>(opt =>
+            //    opt.UseInMemoryDatabase("Player"));
+            //services.AddDbContext<TournamentContext>(opt =>
+            //    opt.UseInMemoryDatabase("Tournament"));
             services.AddControllers();
         }
 
