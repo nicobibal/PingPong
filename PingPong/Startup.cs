@@ -58,11 +58,14 @@ namespace PingPong
             }
 
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+
 
             app.UseEndpoints(endpoints =>
             {
