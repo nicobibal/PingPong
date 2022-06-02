@@ -116,10 +116,7 @@ namespace PingPong.Controllers
         [HttpPost]
         public async Task<ActionResult<Player>> PostPlayer(Player player)
         {
-            _context.Players.Add(player);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetPlayer), new { id = player.id }, player);
+            return Content("Hello, " + player.firstName.ToString() + " years old!") ;
         }
 
         // DELETE: api/Players/5

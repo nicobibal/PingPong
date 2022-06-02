@@ -12,9 +12,11 @@
     overflow: hidden;
 }
 
-#entete {
-    position: fixed;
+    #entete {
+    position: fixed; /* Make it stick/fixed */
+
 }
+
 
 .bandeaup {
     height: 100vh;
