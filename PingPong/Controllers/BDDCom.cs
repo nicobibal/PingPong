@@ -9,10 +9,10 @@ namespace PingPong.Controllers
 {
     public class BDDCom
     {
+        private static string connectionString = "server=mysql-pingpongbdd.alwaysdata.net; port=3306; user=271403; password=-PingPong-; database=pingpongbdd_database";
 
         public static List<Player> GetPlayers()
         {
-            var connectionString = "server=mysql-pingpongbdd.alwaysdata.net; port=3306; user=271403; password=-PingPong-; database=pingpongbdd_database";
             //je me connecte à la bdd
             MySqlConnection cnn = new MySqlConnection(connectionString);
             cnn.Open();
@@ -40,8 +40,6 @@ namespace PingPong.Controllers
 
         public static Player GetPlayer(int id)
         {
-
-            var connectionString = "server=mysql-pingpongbdd.alwaysdata.net; port=3306; user=271403; password=-PingPong-; database=pingpongbdd_database";
             //je me connecte à la bdd
             MySqlConnection cnn = new MySqlConnection(connectionString);
             cnn.Open();
@@ -67,8 +65,7 @@ namespace PingPong.Controllers
         {
             List<int> ids = new List<int>();
             List<Player> players = new List<Player>();
-
-            var connectionString = "server=mysql-pingpongbdd.alwaysdata.net; port=3306; user=271403; password=-PingPong-; database=pingpongbdd_database";
+            
             //je me connecte à la bdd
             MySqlConnection cnn = new MySqlConnection(connectionString);
             cnn.Open();
