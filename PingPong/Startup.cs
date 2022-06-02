@@ -23,23 +23,12 @@ namespace PingPong
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //string mySqlConnectionStr = Configuration.GetConnectionString("server='mysql-pingpongbdd.alwaysdata.net';user='271403';password='-PingPong-';database='pingpongbdd_database'");
-            //services.AddDbContextPool<MatchContext>(options => options.UseSqlServer(mySqlConnectionStr,(ServerVersion.AutoDetect(mySqlConnectionStr)));
-
-            //services.AddControllers();
-            //services.AddEntityFrameworkMySql();
             services.AddDbContext<PlayerContext>(options =>
                    options.UseMySql(Configuration.GetConnectionString("Default")));
 
             services.AddDbContext<MatchContext>(options =>
                    options.UseMySql(Configuration.GetConnectionString("Default")));
 
-            //services.AddDbContext<MatchContext>(opt =>
-            //    opt.UseInMemoryDatabase("Match"));
-            //services.AddDbContext<PlayerContext>(opt =>
-            //    opt.UseInMemoryDatabase("Player"));
-            //services.AddDbContext<TournamentContext>(opt =>
-            //    opt.UseInMemoryDatabase("Tournament"));
             services.AddControllers();
         }
 
