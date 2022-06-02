@@ -7,7 +7,7 @@ namespace PingPong.Models
 {
     public class Tournament
     {
-        public long id { get; set; }
+        public int id { get; set; }
         public List<Match> matches { get; set; }
 
         public List<Player> players { get; set; }

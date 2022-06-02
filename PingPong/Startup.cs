@@ -31,6 +31,9 @@ namespace PingPong
             services.AddDbContext<PlayerContext>(options =>
                    options.UseMySql(Configuration.GetConnectionString("Default")));
 
+            services.AddDbContext<MatchContext>(options =>
+                   options.UseMySql(Configuration.GetConnectionString("Default")));
+
             //services.AddDbContext<MatchContext>(opt =>
             //    opt.UseInMemoryDatabase("Match"));
             //services.AddDbContext<PlayerContext>(opt =>

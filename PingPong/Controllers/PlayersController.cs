@@ -50,21 +50,32 @@ namespace PingPong.Controllers
             }
             cnn.Close();
             return maListe;
-            //return await _context.Players.ToListAsync();
         }
 
         // GET: api/Players/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Player>> GetPlayer(long id)
         {
-            var player = await _context.Players.FindAsync(id);
-
-            if (player == null)
+            var connectionString = "server=mysql-pingpongbdd.alwaysdata.net; port=3306; user=271403; password=-PingPong-; database=pingpongbdd_database";
+            //je me connecte à la bdd
+            MySqlConnection cnn = new MySqlConnection(connectionString);
+            cnn.Open();
+            //Je crée une requête sql
+            string sql = @"SELECT * FROM Player where id = " + id;
+            //Executer la requête sql, donc créer une commande
+            MySqlCommand cmd = new MySqlCommand(sql, cnn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            Player p = new Player()
             {
-                return NotFound();
-            }
+                id = Convert.ToInt32(reader["id"]),
+                lastName = reader["lastName"].ToString(),
+                firstName = reader["firstName"].ToString(),
+                nationality = reader["nationality"].ToString()
+            };
 
-            return player;
+            cnn.Close();
+            return p;
         }
 
         // PUT: api/Players/5

@@ -7,7 +7,7 @@ namespace PingPong.Models
 {
     public class Match
     {
-        public long id { get; set; }
+        public int id { get; set; }
         public Player p1 { get; set; }
         public Player p2 { get; set; }
         public int scoreP1 { get; set; }

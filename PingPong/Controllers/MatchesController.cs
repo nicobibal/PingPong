@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using PingPong.Models;
 
 namespace PingPong.Controllers
@@ -24,7 +25,65 @@ namespace PingPong.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Match>>> GetMatchs()
         {
-            return await _context.Matchs.ToListAsync();
+            List<int> ids = new List<int>();
+            List<Player> players = new List<Player>();
+
+            var connectionString = "server=mysql-pingpongbdd.alwaysdata.net; port=3306; user=271403; password=-PingPong-; database=pingpongbdd_database";
+            //je me connecte à la bdd
+            MySqlConnection cnn = new MySqlConnection(connectionString);
+            cnn.Open();
+            //Je crée une requête sql
+            string sql = @"SELECT * FROM Matches";
+            //Executer la requête sql, donc créer une commande
+            MySqlCommand cmd = new MySqlCommand(sql, cnn);
+            var reader = cmd.ExecuteReader();
+            var maListe = new List<Match>();
+            //Récupérer le retour, et le transformer en objet
+            while (reader.Read())
+            {
+                ids.Add((int)reader["p1"]);
+                ids.Add((int)reader["p2"]);
+                var m = new Match()
+                {
+                    id = Convert.ToInt32(reader["id"]),
+                    p1 = null,
+                    p2 = null,
+                    scoreP1 = (int)reader["scoreP1"],
+                    scoreP2 = (int)reader["scoreP2"]
+                };
+                maListe.Add(m);
+            }
+            cnn.Close();
+            for(int i = 0; i< ids.Count(); i++)
+            {
+                cnn = new MySqlConnection(connectionString);
+                cnn.Open();
+                //Je crée une requête sql
+                sql = @"SELECT * FROM Player where id = " + ids[i];
+                //Executer la requête sql, donc créer une commande
+                cmd = new MySqlCommand(sql, cnn);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+                Player p = new Player()
+                {
+                    id = Convert.ToInt32(reader["id"]),
+                    lastName = reader["lastName"].ToString(),
+                    firstName = reader["firstName"].ToString(),
+                    nationality = reader["nationality"].ToString()
+                };
+
+                players.Add(p);
+
+                cnn.Close();
+            }
+
+            for(int i =0; i < maListe.Count(); i++)
+            {
+                maListe[i].p1 = players[i*2];
+                maListe[i].p2 = players[i*2+1];
+            }
+
+            return maListe;
         }
 
         // GET: api/Matches/5
