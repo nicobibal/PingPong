@@ -62,30 +62,21 @@
     <!-- -----------------------------------------Ajouter un player -------------------------------------  -->
 
     <div class="bandeaui container-fluid">
-        <h3 class="text-center thin">Ajouter un pingpongueur</h3>
+        <h3 class="text-center thin">Lancer des requêtes</h3>
+        <form class="needs-validation" action="/Players" method="get">
+            <div class="col-4">
+                <button class="btn btn-primary" type="submit">Liste des Joueurs</button>
+            </div>
+        </form>
 
-        <div class="mb-3">
-            <label for="firstName" class="form-label">First Name</label>
-            <input class="form-control" id="firstName" placeholder="Troubadour">
-        </div>
-        <div class="mb-3">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input class="form-control" id="lastName" placeholder="Durand">
-        </div>
-        <div class="mb-3">
-            <label for="firstName" class="form-label">Nationalité</label>
-            <select class="form-select" aria-label="Nationalité">
-                <option selected>Ouvrir</option>
-                <option value="FRA">Français</option>
-                <option value="CAM">Camerounais</option>
-                <option value="GUA">Guatemalien</option>
-            </select>
-        </div>
-        <button class="btn btn-primary" type="submit">Submit form</button>
-    </div>
+        <form class="needs-validation" action="/Matches" method="get">
+            <div class="col-4">
+                <button class="btn btn-primary" type="submit">Liste des Matchs</button>
+            </div>
+        </form>
 
-    <div class="bandeaup container-fluid">
-        <h3 class="text-center thin">Le classement</h3>
+       
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
